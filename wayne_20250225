@@ -1,0 +1,37 @@
+
+dialog --title "訊息視窗" --msgbox "歡迎參加三國歷史考驗\n看你能對幾題\n祝你好運" 10 50;
+dialog --title "進度條" --gauge 目前進度 10 30 20
+dialog --title "第一題" --yesno "劉備三顧茅廬的人士諸葛恪" 10 60
+if [ $? -eq 0 ]; then
+        ans="你答錯了，正確答案：劉備三顧茅廬的是諸葛亮"
+        echo $ans > Fraction.txt
+
+else
+         ans="你答對了，劉備三顧茅廬的是諸葛亮"
+         echo $ans > Fraction.txt
+
+fi
+two=$(dialog --stdout --title "第二題" --radiolist "孫權是打了下列哪個戰役後被戲稱為孫十萬" 10 60 3 1 "襄樊之戰" off 2 "官渡之戰" off 3 "合肥之戰" off)
+case $two in
+        1)
+                ans2="你答錯了，正解是3，因為孫權在合肥之戰率領10萬軍被曹魏的五子良將張遼800騎單方面打敗，因而獲得孫>十萬之名"
+                echo $ans2 >> Fraction.txt
+        ;;
+        2)
+                ans2="你答錯了，正解是3，因為孫權在合肥之戰率領10萬軍被曹魏的五子良將張遼800騎單方面打敗，因而獲得孫>十萬之名"
+                echo $ans2 >> Fraction.txt
+        ;;
+        3)
+                ans2="你答對了，孫權在合肥之戰率領10萬軍被曹魏的五子良將張遼800騎單方面打敗，因而獲得孫十萬之名"     
+                echo $ans2 >> Fraction.txt
+esac
+
+text=`dialog --stdout --inputbox "請問是誰娶了夏侯淵的義女為老婆" 8 40`
+if [ $text == "張飛" ]; then
+        ans3="你答對了，正是張飛"
+        echo $ans3 >> Fraction.txt
+else
+        ans3="答錯了，答案是張飛"
+        echo $ans3 >> Fraction.txt
+fi
+dialog --title "公布答案" --textbox Fraction.txt 10 100;
